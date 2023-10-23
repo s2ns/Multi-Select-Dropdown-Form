@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Multi-Select Dropdown Form</title>
+    <style>
+    	/* Reset some default styles */
+body, html, h1, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Basic styling for the form */
+form {
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.selected-checkbox {
+    background-color: #cceeff; /* Change this to your desired background color */
+}
+
+input[type="checkbox"] {
+    display: contents;
+}
+
+.checkbox-container {
+    height: 50px;
+    overflow-y: auto;
+}
+
+	</style>
+</head>
+<body>
+    <form id="multiSelectForm">
+        <label for="options">Select Options:</label>
+        <select id="options" name="options" multiple>
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+            <option value="option3">Option 3</option>
+            <!-- Add more options as needed -->
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+    
+    <form id="multiSelectForm2">
+    <label>Select Options:</label>
+    <div class="checkbox-container">
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="option1" value="option1"> Option 1</label>
+            <label><input type="checkbox" name="option2" value="option2"> Option 2</label>
+            <label><input type="checkbox" name="option3" value="option3"> Option 3</label>
+            <!-- Add more options as needed -->
+        </div>
+    </div>
+    <button type="submit2">Submit</button>
+</form>
+
+
+    <script>
+    	document.addEventListener("DOMContentLoaded", function() {
+    const selectElement = document.getElementById("options");
+    const form = document.getElementById("multiSelectForm");
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        const selectedOptions = Array.from(selectElement.selectedOptions).map(option => option.value);
+        console.log("Selected options:", selectedOptions);
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const form = document.getElementById("multiSelectForm2");
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener("change", function() {
+        if (checkbox.checked) {
+                checkbox.parentElement.classList.add("selected-checkbox");
+            } else {
+                checkbox.parentElement.classList.remove("selected-checkbox");
+            }
+            
+            const selectedOptions = Array.from(checkboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+
+            console.log("Selected options:", selectedOptions);
+        });
+    });
+
+    form.addEventListener("submit2", function(event) {
+        event.preventDefault();
+        // Handle form submission if needed
+    });
+});
+
+
+    </script>
+</body>
+</html>
